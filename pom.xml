@@ -55,10 +55,11 @@
     		<artifactId>jackson-databind</artifactId>
 		</dependency>
 		<dependency>
-    		<groupId>javax.servlet</groupId>
-    		<artifactId>javax.servlet-api</artifactId>
-    		<version>3.1.0</version>
-    		<scope>provided</scope>
+			<groupId>ai.peoplecode</groupId>
+			<artifactId>open-ai-conversation</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/libs/PeopleCodeOpenAI.jar</systemPath>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>
@@ -77,6 +78,16 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			<dependency>
+				<groupId>com.google.cloud</groupId>
+				<artifactId>spring-cloud-gcp-starter-secretmanager</artifactId>
+				<version>LATEST_VERSION</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-configuration-processor</artifactId>
+				<optional>true</optional>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -92,9 +103,16 @@
             	<version>2.4.4</version>
             	<configuration>
                 	<version>1</version>
-                	<projectId>springbooks2024</projectId>
+                	<projectId>notes-and-items-api</projectId>
             	</configuration>
         </plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<includeSystemScope>true</includeSystemScope>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

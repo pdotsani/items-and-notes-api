@@ -1,57 +1,56 @@
 package com.example.demo;
 
-import java.util.List;
-
+import ai.peoplecode.OpenAIConversation;
 import com.google.common.collect.Lists;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+
+@SpringBootApplication
+@EnableConfigurationProperties
+public class DemoApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+    }
+}
 
 @ShellComponent
-@SpringBootApplication
-public class DemoApplication {
-  @Autowired
-  BookRepository bookRepository;
+class NoteCommands {
+    private final NoteRepository noteRepository;
+    private final String openAiKey;
 
-  public static void main(String[] args) {
-     SpringApplication.run(DemoApplication.class, args);
-  }
+    public NoteCommands(NoteRepository noteRepository,
+                        @Value("${app.api-key}") String openAiKey) {
+        this.noteRepository = noteRepository;
+        this.openAiKey = openAiKey;
+    }
 
-  @ShellMethod("Saves a book to Cloud Datastore: save-book <title> <author> <year>")
-  public String saveBook(String title, String author, int year) {
-     Book savedBook = this.bookRepository.save(new Book(title, author, year));
-     return savedBook.toString();
-  }
+    @ShellMethod("saves a note")
+    public String saveNote(String owner, String patient, String note) {
+        Note savedNote = this.noteRepository.save(new Note(owner, patient, note));
+        return savedNote.toString();
+    }
 
-  @ShellMethod("Loads all books")
-  public String findAllBooks() {
-     Iterable<Book> books = this.bookRepository.findAll();
-     return Lists.newArrayList(books).toString();
-  }
+    @ShellMethod("shows all notes")
+    public String findAllNotes() {
+        Iterable<Note> savedNotes = this.noteRepository.findAll();
+        return Lists.newArrayList(savedNotes).toString();
+    }
 
-  @ShellMethod("Loads books by author: find-by-author <author>")
-  public String findByAuthor(String author) {
-     List<Book> books = this.bookRepository.findByAuthor(author);
-     return books.toString();
-  }
+    @ShellMethod("shows all notes")
+    public String findNotesByOwner(String owner) {
+        Iterable<Note> savedNotes = this.noteRepository.findByOwner(owner);
+        return Lists.newArrayList(savedNotes).toString();
+    }
 
-  @ShellMethod("Loads books published after a given year: find-by-year-after <year>")
-  public String findByYearAfter(int year) {
-     List<Book> books = this.bookRepository.findByYearGreaterThan(year);
-     return books.toString();
-  }
-
-  @ShellMethod("Loads books by author and year: find-by-author-year <author> <year>")
-  public String findByAuthorYear(String author, int year) {
-     List<Book> books = this.bookRepository.findByAuthorAndYear(author, year);
-     return books.toString();
-  }
-
-  @ShellMethod("Removes all books")
-  public void removeAllBooks() {
-     this.bookRepository.deleteAll();
-  }
+    @ShellMethod("summarize item")
+    public String summarizeItem(String body, String muscle, String memo) {
+        OpenAIConversation conversation = new OpenAIConversation(openAiKey, "gpt-4o-mini");
+        String context = "body part: " + body + ". muscles involved: " + muscle;
+        return conversation.askQuestion(context, "can you create one brief paragraph with this information and this memo: " + memo);
+    }
 }
