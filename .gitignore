@@ -9,6 +9,8 @@ target/
 **/application.yml
 **/bootstrap-prod.yml
 
+**/spring-shell.log
+
 ### STS ###
 .apt_generated
 .classpath

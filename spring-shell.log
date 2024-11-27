@@ -23,3 +23,5 @@
 1732417308942:summarize-item [new Item("leg","hamstring")]
 1732417340584:Item i = new Item("leg","hamstring");
 1732417593259:summarize-item "leg" "hamstring" "tightness in the upper area"
+1732658959308:summarize-item "neck" "scalenes" "decreased lateral flexion to the right"
+1732659100446:summarize-item "hip" "rectus femoris" "pain with right hip extension"
