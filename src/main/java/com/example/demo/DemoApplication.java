@@ -53,4 +53,17 @@ class NoteCommands {
         String context = "body part: " + body + ". muscles involved: " + muscle;
         return conversation.askQuestion(context, "can you create one brief paragraph with this information and this memo: " + memo);
     }
-}
+
+    @ShellMethod("post treatment plan")
+    public String  postTreatmentPlan(String summarizeItem) {
+        OpenAIConversation conversation1 = new OpenAIConversation(openAiKey, "gpt-4o-mini");
+
+        return conversation1.askQuestion(summarizeItem, "Can you create a brief paragraph using the paragraph you just provided me with which will give an example treatment plan for the specific problem with the patient?");
+        }
+
+    //@CrossOrigin(origins = "*")
+
+     //String treatment = "body part:" + item.getBodyPart() + " . "
+
+
+    }

@@ -26,25 +26,26 @@ public class NoteController {
     @PostMapping("/saveNote")
     @CrossOrigin(origins = "*")
     public String saveNote(@RequestBody Note note) {
-        if(note == null) {
+        if (note == null) {
             return "invalid note";
         }
         this.noteRepository.save(note);
         return "success";
     }
 
-    @PostMapping("/summarizeNotes")
-    @CrossOrigin(origins = "*")
-    public List<String> summarizeNotes(@RequestBody List<Item> items) {
-        OpenAIConversation conversation = new OpenAIConversation(this.OPENAIKEY, "gpt-4o-mini");
-        List<String> lines = new ArrayList<>();
-        for (Item item : items) {
-            String context = "body part: " + item.getBodyPart() + ". musscles involved: " + item.getMuscles();
-            String line = conversation.askQuestion(context, "can you create one brief paragraph with this information and this memo: " + item.getMemo());
-            lines.add(line);
+
+        @PostMapping("/postTreatmentPlan")
+        @CrossOrigin(origins = "*")
+        public String postTreatmentPlan(@RequestBody String summarizeNotes) {
+
+            OpenAIConversation conversation1 = new OpenAIConversation(OPENAIKEY, "gpt-4o-mini");
+
+            return conversation1.askQuestion(summarizeNotes, "Can you create a brief paragraph using the paragraph you just provided me with which will give an example treatment plan with specific exercises for the specific problem with the patient?");
+
         }
-        return lines;
-    }
+
+
+
 
     @GetMapping("/getNotes")
     @CrossOrigin(origins = "*")
@@ -53,5 +54,7 @@ public class NoteController {
         List<Note> noteList = new ArrayList<>();
         notes.forEach(noteList::add); {}
         return noteList;
+
+
     }
 }
