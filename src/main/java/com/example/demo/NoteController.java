@@ -45,6 +45,20 @@ public class NoteController {
         }
 
 
+    @PostMapping("/summarizeNotes")
+    @CrossOrigin(origins = "*")
+    public List<String> summarizeNotes(@RequestBody List<Item> items) {
+        OpenAIConversation conversation = new OpenAIConversation(OPENAIKEY, "gpt-4o-mini");
+        List<String> lines = new ArrayList<>();
+        for (Item item : items) {
+            String context = "body part: " + item.getBodyPart() + ". musscles involved: " + item.getMuscles();
+            String line = conversation.askQuestion(context, "can you create one brief paragraph with this information and this memo: " + item.getMemo());
+            lines.add(line);
+        }
+        return lines;
+    }
+
+
 
 
     @GetMapping("/getNotes")
