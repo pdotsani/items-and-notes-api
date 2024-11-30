@@ -7,16 +7,6 @@ import java.util.ArrayList;
 
 @Entity(name = "Note")
 public class Note {
-    static class SummaryFollowUpPair {
-        String summary;
-        String followUp;
-
-        public SummaryFollowUpPair(String summary, String followUp) {
-            this.summary = summary;
-            this.followUp = followUp;
-        }
-    }
-
     @Id
     private Long id;
 
@@ -24,12 +14,15 @@ public class Note {
 
     final private String patient;
 
-    private ArrayList<SummaryFollowUpPair> summaryAndFollowUps;
+    final private String summary;
 
-    public Note(String owner, String patient, ArrayList<SummaryFollowUpPair> pairs) {
+    final private String followUp;
+
+    public Note(String owner, String patient, String summary, String followUp) {
         this.owner = owner;
         this.patient = patient;
-        this.summaryAndFollowUps = pairs;
+        this.summary = summary;
+        this.followUp = followUp;
     }
 
     public String getOwner() {
@@ -40,9 +33,9 @@ public class Note {
         return this.patient;
     }
 
-    public ArrayList<SummaryFollowUpPair> getSummaryAndFollowUps() {
-        return this.summaryAndFollowUps;
-    }
+    public String getSummary() { return this.summary; }
+
+    public String getFollowUp() { return this.followUp; }
 
     @Override
     public String toString() {
@@ -50,7 +43,8 @@ public class Note {
                 "id=" + id +
                 ", owner='" + owner + '\'' +
                 ", patient='" + patient + '\'' +
-                ", summaryAndFollowUps=" + summaryAndFollowUps +
+                ", summary='" + summary + '\'' +
+                ", followUp='" + followUp + '\'' +
                 '}';
     }
 }

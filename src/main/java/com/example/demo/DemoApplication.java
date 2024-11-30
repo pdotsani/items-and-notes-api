@@ -24,22 +24,10 @@ class NoteCommands {
     private final NoteRepository noteRepository;
     private final String openAiKey;
 
-    class SaveNotesBody {
-        String owner;
-        String patient;
-        Item[] items;
-    }
-
     public NoteCommands(NoteRepository noteRepository,
                         @Value("${app.api-key}") String openAiKey) {
         this.noteRepository = noteRepository;
         this.openAiKey = openAiKey;
-    }
-
-    @ShellMethod("saves a note")
-    public String saveNote(String owner, String patient, ArrayList<Note.SummaryFollowUpPair> pairs) {
-        Note savedNote = this.noteRepository.save(new Note(owner, patient, pairs));
-        return savedNote.toString();
     }
 
     @ShellMethod("shows all notes")
@@ -66,18 +54,4 @@ class NoteCommands {
         OpenAIConversation conversation1 = new OpenAIConversation(openAiKey, "gpt-4o-mini");
         return conversation1.askQuestion(summarizeItem, "Can you create a brief paragraph using the paragraph you just provided me with which will give an example treatment plan for the specific problem with the patient?");
     }
-
-    @ShellMethod("save notes")
-    public void saveNotes(SaveNotesBody notesBody) {
-        ArrayList<Note.SummaryFollowUpPair> pairs = new ArrayList<>();
-        for(Item item: notesBody.items) {
-            String summary = summarizeItem(item.getBodyPart(), item.getMuscles(), item.getMemo());
-            String postPlan = postTreatmentPlan(summary);
-
-            Note.SummaryFollowUpPair pair = new Note.SummaryFollowUpPair(summary, postPlan);
-            pairs.add(pair);
-        }
-        saveNote(notesBody.owner, notesBody.patient, pairs);
-    }
-
 }

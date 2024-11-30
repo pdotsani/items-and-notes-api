@@ -17,6 +17,12 @@ public class NoteController {
     private final NoteRepository noteRepository;
     private final String OPENAIKEY;
 
+    class SaveNotesBody {
+        String owner;
+        String patient;
+        Item item;
+    }
+
     @Autowired
     public NoteController(NoteRepository noteRepository, @Value("${app.api-key}") String OPENAIKEY) {
         this.OPENAIKEY = OPENAIKEY;
@@ -34,16 +40,10 @@ public class NoteController {
 
     @PostMapping("/saveNotes")
     @CrossOrigin(origins = "*")
-    public void saveNotes(NoteCommands.SaveNotesBody notesBody) {
-        ArrayList<Note.SummaryFollowUpPair> pairs = new ArrayList<>();
-        for (Item item: notesBody.items) {
-            String summary = summarizeNote(item);
-            String postPlan = postTreatmentPlan(summary);
-
-            Note.SummaryFollowUpPair pair = new Note.SummaryFollowUpPair(summary, postPlan);
-            pairs.add(pair);
-        }
-        saveNote(new Note(notesBody.owner, notesBody.patient, pairs));
+    public void saveNotes(SaveNotesBody notesBody) {
+        String summary = summarizeNote(notesBody.item);
+        String postPlan = postTreatmentPlan(summary);
+        saveNote(new Note(notesBody.owner, notesBody.patient, summary, postPlan));
     }
 
     public void saveNote(@RequestBody Note note) {
