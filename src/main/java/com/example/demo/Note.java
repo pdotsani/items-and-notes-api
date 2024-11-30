@@ -3,21 +3,33 @@ package com.example.demo;
 import com.google.cloud.spring.data.datastore.core.mapping.Entity;
 import org.springframework.data.annotation.Id;
 
+import java.util.ArrayList;
+
 @Entity(name = "Note")
 public class Note {
+    static class SummaryFollowUpPair {
+        String summary;
+        String followUp;
+
+        public SummaryFollowUpPair(String summary, String followUp) {
+            this.summary = summary;
+            this.followUp = followUp;
+        }
+    }
+
     @Id
     private Long id;
 
-    private String owner;
+    final private String owner;
 
-    private String patient;
+    final private String patient;
 
-    private String note;
+    private ArrayList<SummaryFollowUpPair> summaryAndFollowUps;
 
-    public Note(String owner, String patient, String note) {
+    public Note(String owner, String patient, ArrayList<SummaryFollowUpPair> pairs) {
         this.owner = owner;
         this.patient = patient;
-        this.note = note;
+        this.summaryAndFollowUps = pairs;
     }
 
     public String getOwner() {
@@ -28,8 +40,8 @@ public class Note {
         return this.patient;
     }
 
-    public String getNote() {
-        return this.note;
+    public ArrayList<SummaryFollowUpPair> getSummaryAndFollowUps() {
+        return this.summaryAndFollowUps;
     }
 
     @Override
@@ -38,7 +50,7 @@ public class Note {
                 "id=" + id +
                 ", owner='" + owner + '\'' +
                 ", patient='" + patient + '\'' +
-                ", note='" + note + '\'' +
+                ", summaryAndFollowUps=" + summaryAndFollowUps +
                 '}';
     }
 }

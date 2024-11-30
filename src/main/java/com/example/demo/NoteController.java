@@ -23,44 +23,6 @@ public class NoteController {
         this.noteRepository = noteRepository;
     }
 
-    @PostMapping("/saveNote")
-    @CrossOrigin(origins = "*")
-    public String saveNote(@RequestBody Note note) {
-        if (note == null) {
-            return "invalid note";
-        }
-        this.noteRepository.save(note);
-        return "success";
-    }
-
-
-        @PostMapping("/postTreatmentPlan")
-        @CrossOrigin(origins = "*")
-        public String postTreatmentPlan(@RequestBody String summarizeNotes) {
-
-            OpenAIConversation conversation1 = new OpenAIConversation(OPENAIKEY, "gpt-4o-mini");
-
-            return conversation1.askQuestion(summarizeNotes, "Can you create a brief paragraph using the paragraph you just provided me with which will give an example treatment plan with specific exercises for the specific problem with the patient?");
-
-        }
-
-
-    @PostMapping("/summarizeNotes")
-    @CrossOrigin(origins = "*")
-    public List<String> summarizeNotes(@RequestBody List<Item> items) {
-        OpenAIConversation conversation = new OpenAIConversation(OPENAIKEY, "gpt-4o-mini");
-        List<String> lines = new ArrayList<>();
-        for (Item item : items) {
-            String context = "body part: " + item.getBodyPart() + ". musscles involved: " + item.getMuscles();
-            String line = conversation.askQuestion(context, "can you create one brief paragraph with this information and this memo: " + item.getMemo());
-            lines.add(line);
-        }
-        return lines;
-    }
-
-
-
-
     @GetMapping("/getNotes")
     @CrossOrigin(origins = "*")
     public List<Note> getAllNotes(@RequestParam String owner) {
@@ -68,7 +30,37 @@ public class NoteController {
         List<Note> noteList = new ArrayList<>();
         notes.forEach(noteList::add); {}
         return noteList;
+    }
 
+    @PostMapping("/saveNotes")
+    @CrossOrigin(origins = "*")
+    public void saveNotes(NoteCommands.SaveNotesBody notesBody) {
+        ArrayList<Note.SummaryFollowUpPair> pairs = new ArrayList<>();
+        for (Item item: notesBody.items) {
+            String summary = summarizeNote(item);
+            String postPlan = postTreatmentPlan(summary);
 
+            Note.SummaryFollowUpPair pair = new Note.SummaryFollowUpPair(summary, postPlan);
+            pairs.add(pair);
+        }
+        saveNote(new Note(notesBody.owner, notesBody.patient, pairs));
+    }
+
+    public void saveNote(@RequestBody Note note) {
+        if (note == null) {
+            throw new IllegalArgumentException("Note cannot be null");
+        }
+        this.noteRepository.save(note);
+    }
+
+    public String summarizeNote(@RequestBody Item item) {
+        OpenAIConversation conversation = new OpenAIConversation(OPENAIKEY, "gpt-4o-mini");
+        String context = "body part: " + item.getBodyPart() + ". musscles involved: " + item.getMuscles();
+        return conversation.askQuestion(context, "can you create one brief paragraph with this information and this memo: " + item.getMemo());
+    }
+
+    public String postTreatmentPlan(@RequestBody String summarizeNotes) {
+        OpenAIConversation conversation1 = new OpenAIConversation(OPENAIKEY, "gpt-4o-mini");
+        return conversation1.askQuestion(summarizeNotes, "Can you create a brief paragraph using the paragraph you just provided me with which will give an example treatment plan with specific exercises for the specific problem with the patient?");
     }
 }
