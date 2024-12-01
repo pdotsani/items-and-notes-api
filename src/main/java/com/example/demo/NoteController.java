@@ -17,7 +17,7 @@ public class NoteController {
     private final NoteRepository noteRepository;
     private final String OPENAIKEY;
 
-    class SaveNotesBody {
+    class SaveNoteBody {
         String owner;
         String patient;
         Item item;
@@ -38,9 +38,9 @@ public class NoteController {
         return noteList;
     }
 
-    @PostMapping("/saveNotes")
+    @PostMapping("/saveNote")
     @CrossOrigin(origins = "*")
-    public void saveNotes(SaveNotesBody notesBody) {
+    public void saveNote(SaveNoteBody notesBody) {
         String summary = summarizeNote(notesBody.item);
         String postPlan = postTreatmentPlan(summary);
         saveNote(new Note(notesBody.owner, notesBody.patient, summary, postPlan));
