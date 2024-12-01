@@ -10,13 +10,13 @@ public class Note {
     @Id
     private Long id;
 
-    final private String owner;
+    private String owner;
 
-    final private String patient;
+    private String patient;
 
-    final private String summary;
+    private String summary;
 
-    final private String followUp;
+    private String followUp;
 
     public Note(String owner, String patient, String summary, String followUp) {
         this.owner = owner;
