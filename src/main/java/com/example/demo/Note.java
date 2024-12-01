@@ -2,6 +2,7 @@ package com.example.demo;
 
 import com.google.cloud.spring.data.datastore.core.mapping.Entity;
 import org.springframework.data.annotation.Id;
+import java.time.ZoneId;
 import java.time.LocalDateTime;
 
 @Entity(name = "Note")
@@ -24,7 +25,7 @@ public class Note {
         this.patient = patient;
         this.summary = summary;
         this.followUp = followUp;
-        this.date = LocalDateTime.now();
+        this.date = LocalDateTime.now(ZoneId.of("America/Los_Angeles"));
     }
 
     public String getOwner() {
