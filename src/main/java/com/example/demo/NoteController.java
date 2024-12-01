@@ -17,7 +17,7 @@ public class NoteController {
     private final NoteRepository noteRepository;
     private final String OPENAIKEY;
 
-    class SaveNoteBody {
+    static class SaveNoteBody {
         String owner;
         String patient;
         String muscles;
@@ -42,27 +42,27 @@ public class NoteController {
 
     @PostMapping("/saveNote")
     @CrossOrigin(origins = "*")
-    public void saveNote(SaveNoteBody notesBody) {
+    public void saveNote(@RequestBody SaveNoteBody notesBody) {
         Item newItem = new Item(notesBody.bodyPart, notesBody.muscles, notesBody.memo);
         String summary = summarizeNote(newItem);
         String postPlan = postTreatmentPlan(summary);
         saveInfo(new Note(notesBody.owner, notesBody.patient, summary, postPlan));
     }
 
-    public void saveInfo(@RequestBody Note note) {
+    public void saveInfo(Note note) {
         if (note == null) {
             throw new IllegalArgumentException("Note cannot be null");
         }
         this.noteRepository.save(note);
     }
 
-    public String summarizeNote(@RequestBody Item item) {
+    public String summarizeNote(Item item) {
         OpenAIConversation conversation = new OpenAIConversation(OPENAIKEY, "gpt-4o-mini");
         String context = "body part: " + item.getBodyPart() + ". muscles involved: " + item.getMuscles();
         return conversation.askQuestion(context, "can you create one brief paragraph with this information and this memo: " + item.getMemo());
     }
 
-    public String postTreatmentPlan(@RequestBody String summarizeNotes) {
+    public String postTreatmentPlan(String summarizeNotes) {
         OpenAIConversation conversation1 = new OpenAIConversation(OPENAIKEY, "gpt-4o-mini");
         return conversation1.askQuestion(summarizeNotes, "Can you create a brief paragraph using the paragraph you just provided me with which will give an example treatment plan with specific exercises for the specific problem with the patient?");
     }
