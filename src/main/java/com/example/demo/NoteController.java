@@ -18,11 +18,11 @@ public class NoteController {
     private final String OPENAIKEY;
 
     static class SaveNoteBody {
-        String owner;
-        String patient;
-        String muscles;
-        String bodyPart;
-        String memo;
+        public String owner;
+        public String patient;
+        public String muscles;
+        public String bodyPart;
+        public String memo;
     }
 
     @Autowired
