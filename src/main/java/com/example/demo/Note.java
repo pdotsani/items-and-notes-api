@@ -2,13 +2,14 @@ package com.example.demo;
 
 import com.google.cloud.spring.data.datastore.core.mapping.Entity;
 import org.springframework.data.annotation.Id;
-
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 
 @Entity(name = "Note")
 public class Note {
     @Id
     private Long id;
+
+    private LocalDateTime date;
 
     private String owner;
 
@@ -23,6 +24,7 @@ public class Note {
         this.patient = patient;
         this.summary = summary;
         this.followUp = followUp;
+        this.date = LocalDateTime.now();
     }
 
     public String getOwner() {
@@ -36,6 +38,8 @@ public class Note {
     public String getSummary() { return this.summary; }
 
     public String getFollowUp() { return this.followUp; }
+
+    public String getDate() { return this.date.toString(); }
 
     @Override
     public String toString() {
