@@ -20,7 +20,9 @@ public class NoteController {
     class SaveNoteBody {
         String owner;
         String patient;
-        Item item;
+        String muscles;
+        String bodyPart;
+        String memo;
     }
 
     @Autowired
@@ -41,7 +43,8 @@ public class NoteController {
     @PostMapping("/saveNote")
     @CrossOrigin(origins = "*")
     public void saveNote(SaveNoteBody notesBody) {
-        String summary = summarizeNote(notesBody.item);
+        Item newItem = new Item(notesBody.bodyPart, notesBody.muscles, notesBody.memo);
+        String summary = summarizeNote(newItem);
         String postPlan = postTreatmentPlan(summary);
         saveNote(new Note(notesBody.owner, notesBody.patient, summary, postPlan));
     }
