@@ -46,10 +46,10 @@ public class NoteController {
         Item newItem = new Item(notesBody.bodyPart, notesBody.muscles, notesBody.memo);
         String summary = summarizeNote(newItem);
         String postPlan = postTreatmentPlan(summary);
-        saveNote(new Note(notesBody.owner, notesBody.patient, summary, postPlan));
+        saveInfo(new Note(notesBody.owner, notesBody.patient, summary, postPlan));
     }
 
-    public void saveNote(@RequestBody Note note) {
+    public void saveInfo(@RequestBody Note note) {
         if (note == null) {
             throw new IllegalArgumentException("Note cannot be null");
         }
