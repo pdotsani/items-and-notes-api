@@ -55,7 +55,7 @@ public class NoteController {
 
     public String summarizeNote(@RequestBody Item item) {
         OpenAIConversation conversation = new OpenAIConversation(OPENAIKEY, "gpt-4o-mini");
-        String context = "body part: " + item.getBodyPart() + ". musscles involved: " + item.getMuscles();
+        String context = "body part: " + item.getBodyPart() + ". muscles involved: " + item.getMuscles();
         return conversation.askQuestion(context, "can you create one brief paragraph with this information and this memo: " + item.getMemo());
     }
 
