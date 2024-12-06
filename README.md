@@ -35,9 +35,8 @@ data. First, a paragraph which describes the issue the patient has including the
 specific location of the pain, and second, a treatment plan for the patient specific
 to the issue in question. 
 
-
-## Features Which We May Add Later
--New feature which allows the use to delete past notes
--New feature which allows user to copy text in notes to clipboard
+## Note to Prof
+We were working through some issues in version control and our commits got misaligned and 
+permissions stopped working so Sabine was not able to commit/push the final changes to LoginForm.js and LoginForm.css which consisted of adding a title and font color. 
 
 
