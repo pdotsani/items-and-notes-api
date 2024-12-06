@@ -40,3 +40,4 @@ We were working through some issues in version control and our commits got misal
 permissions stopped working so Sabine was not able to commit/push the final changes to LoginForm.js and LoginForm.css which consisted of adding a title and font color. (Patrick committed those changes)
 
 Created by Patrick San Juan and Sabine Scott
+The url of the deployed app is: https://notes-and-items-fe.uc.r.appspot.com
