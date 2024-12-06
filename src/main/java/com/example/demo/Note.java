@@ -28,6 +28,10 @@ public class Note {
         this.date = LocalDateTime.now(ZoneId.of("America/Los_Angeles"));
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getOwner() {
         return this.owner;
     }

@@ -59,7 +59,7 @@ public class NoteController {
     public String summarizeNote(Item item) {
         OpenAIConversation conversation = new OpenAIConversation(OPENAIKEY, "gpt-4o-mini");
         String context = "body part: " + item.getBodyPart() + ". muscles involved: " + item.getMuscles();
-        return conversation.askQuestion(context, "can you create one brief paragraph with this information and this memo: " + item.getMemo());
+        return conversation.askQuestion(context, "can you create a few sentences in declarative note form with this information and this memo: " + item.getMemo() + ". The sentences can be fragmented. Just the sentences, no numbers and titles.");
     }
 
     public String postTreatmentPlan(String summarizeNotes) {
