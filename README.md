@@ -39,4 +39,4 @@ to the issue in question.
 We were working through some issues in version control and our commits got misaligned and 
 permissions stopped working so Sabine was not able to commit/push the final changes to LoginForm.js and LoginForm.css which consisted of adding a title and font color. 
 
-
+Created by Patrick San Juan and Sabine Scott
