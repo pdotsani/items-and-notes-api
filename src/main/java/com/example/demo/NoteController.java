@@ -5,6 +5,7 @@ import java.util.List;
 import ai.peoplecode.OpenAIConversation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -29,7 +30,7 @@ public class NoteController {
     @GetMapping("/getNotes")
     @CrossOrigin(origins = "*")
     public List<Note> getAllNotes(@RequestParam String owner) {
-        Iterable<Note> notes = this.noteRepository.findByOwner(owner);
+        Iterable<Note> notes = this.noteRepository.findByOwnerOrderByDateDesc(owner);
         List<Note> noteList = new ArrayList<>();
         notes.forEach(noteList::add); {}
         return noteList;

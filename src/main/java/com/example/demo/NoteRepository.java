@@ -9,6 +9,8 @@ public interface NoteRepository extends DatastoreRepository<Note, Long> {
 
     List<Note> findByOwner(String owner);
 
+    List<Note> findByOwnerOrderByDateDesc(String owner);
+
     @Query("SELECT DISTINCT owner FROM Note")
     List<String> findAllOwners();
 
