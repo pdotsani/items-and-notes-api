@@ -5,12 +5,7 @@ import java.util.List;
 import ai.peoplecode.OpenAIConversation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class NoteController {
@@ -47,6 +42,12 @@ public class NoteController {
         String summary = summarizeNote(newItem);
         String postPlan = postTreatmentPlan(summary);
         saveInfo(new Note(notesBody.owner, notesBody.patient, summary, postPlan));
+    }
+
+    @DeleteMapping("/note")
+    @CrossOrigin(origins = "*")
+    public void deleteNote(@RequestParam Long id) {
+        this.noteRepository.deleteById(id);
     }
 
     public void saveInfo(Note note) {
