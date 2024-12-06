@@ -4,14 +4,14 @@
 frontend:
 [https://github.com/pdotsani/items-and-notes-fe](https://github.com/pdotsani/items-and-notes-fe)
 
-Items and nots is a webapp designed to help a massage / physical 
+Theranotes is a webapp designed to help a massage / physical 
 therapist with their day to day administrative work by creating 
 "doctor's notes" for their patients. In addition to current diagnosis,
-Items and Notes also helps provide comprehensive treatment plans to 
+Theranotes also helps provide comprehensive treatment plans to 
 better prepare the therapist for future appointments.
 
 ## Data
-Items and Notes will have the following data:
+Theranotes will have the following data:
 - Notes: Consisting of patient name and owner
 - Treatment plan: Consisting of patient name and owner
 
@@ -37,6 +37,6 @@ to the issue in question.
 
 ## Note to Prof
 We were working through some issues in version control and our commits got misaligned and 
-permissions stopped working so Sabine was not able to commit/push the final changes to LoginForm.js and LoginForm.css which consisted of adding a title and font color. 
+permissions stopped working so Sabine was not able to commit/push the final changes to LoginForm.js and LoginForm.css which consisted of adding a title and font color. (Patrick committed those changes)
 
 Created by Patrick San Juan and Sabine Scott
