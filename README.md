@@ -11,8 +11,8 @@ Theranotes also helps provide comprehensive treatment plans to
 better prepare the therapist for future appointments.
 
 ## Data
-Theranotes will have the following data:
-- Notes: Consisting of patient name and owner
+Each note created by Theranotes will have the following data:
+- Summary: Consisting of patient name and owner
 - Treatment plan: Consisting of patient name and owner
 
 Non-persistent data on the fe:
