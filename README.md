@@ -52,3 +52,11 @@ on UI / UX that was mutually collaborative.
 
 Moving forward, Patrick will continue to work with his friend who is a Massage Therapist
 to make the app something he can use daily in his private practice.
+
+## Videos: 
+Demo video of the application: 
+https://youtu.be/CUL_j3JAmVs
+
+
+
+
