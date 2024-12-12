@@ -1,6 +1,10 @@
 # Theranotes
 
 ## Overview
+Created by Patrick San Juan and Sabine Scott
+
+The url of the deployed app is: https://notes-and-items-fe.uc.r.appspot.com
+
 frontend:
 [https://github.com/pdotsani/items-and-notes-fe](https://github.com/pdotsani/items-and-notes-fe)
 
@@ -36,8 +40,15 @@ specific location of the pain, and second, a treatment plan for the patient spec
 to the issue in question. 
 
 ## Note to Prof
-We were working through some issues in version control and our commits got misaligned and 
+We were working through some issues in version control and our commits got misaligned and
 permissions stopped working so Sabine was not able to commit/push the final changes to LoginForm.js and LoginForm.css which consisted of adding a title and font color. (Patrick committed those changes)
 
-Created by Patrick San Juan and Sabine Scott
-The url of the deployed app is: https://notes-and-items-fe.uc.r.appspot.com
+## Building the Project
+We met several times to discuss architecture, work on features and debug the application.
+Sabine made several adds to the backend and frontend, including adding a file to index 
+the data so we could sort by date, and adding some style to the login page. Patrick created
+some of the foundational work with the controller, api, and frontend. There was much discussion
+on UI / UX that was mutually collaborative.
+
+Moving forward, Patrick will continue to work with his friend who is a Massage Therapist
+to make the app something he can use daily in his private practice.
