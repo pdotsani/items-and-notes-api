@@ -57,6 +57,7 @@ to make the app something he can use daily in his private practice.
 Demo video of the application: 
 https://youtu.be/CUL_j3JAmVs
 
-
+Application testing by Thomas S. 
+https://youtu.be/sbb57OjpqpM
 
 
