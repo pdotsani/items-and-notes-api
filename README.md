@@ -48,7 +48,8 @@ We met several times to discuss architecture, work on features and debug the app
 Sabine made several adds to the backend and frontend, including adding a file to index 
 the data so we could sort by date, and adding some style to the login page. Patrick created
 some of the foundational work with the controller, api, and frontend. There was much discussion
-on UI / UX that was mutually collaborative.
+on UI / UX that was mutually collaborative. Patrick and Sabine worked on debugging the app as a 
+team to ensure that it was running smoothly. 
 
 Moving forward, Patrick will continue to work with his friend who is a Massage Therapist
 to make the app something he can use daily in his private practice.
